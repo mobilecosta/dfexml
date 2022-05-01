@@ -1,0 +1,33 @@
+{
+  "name": "Arquivei",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FelipeMarchioli/IntegracaoAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FelipeMarchioli/IntegracaoAPI/issues"
+  },
+  "homepage": "https://github.com/FelipeMarchioli/IntegracaoAPI#readme",
+  "devDependencies": {
+    "husky": "^6.0.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "nodemon": "^2.0.7",
+    "pg-promise": "^10.10.2",
+    "xml2json": "^0.12.0"
+  }
+}
