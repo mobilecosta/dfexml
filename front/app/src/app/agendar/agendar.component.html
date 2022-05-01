@@ -1,0 +1,108 @@
+<po-breadcrumb
+  [p-items]="[
+    { label: 'Meus agendamentos', link: '/home' },
+    { label: 'Agendar' }
+  ]"
+>
+</po-breadcrumb>
+<po-page-default p-title="Agendar">
+  <div class="po-row">
+    <div class="po-md-12 po-text-center po-font-text-large">
+      Faça seu agendamento agora mesmo
+    </div>
+  </div>
+  <div><po-divider></po-divider></div>
+  <div class="po-row">
+    <po-calendar
+      class="po-sm-12 po-md-6 po-mb-2"
+      [p-min-date]="minDate"
+      [(ngModel)]="dateCalendar"
+      (p-change)="changeCalendar($event)"
+    ></po-calendar>
+
+    <form class="po-sm-12 po-md-6" [formGroup]="formAgendar">
+      <div class="po-row">
+        <po-input
+          class="po-sm-12"
+          p-label="Veículo"
+          p-icon="po-icon-steering-wheel"
+          p-help="Marca, modelo e cor"
+          formControlName="carro"
+        >
+        </po-input>
+      </div>
+      <div class="po-row">
+        <po-select
+          class="po-sm-12"
+          p-label="Hora"
+          [p-options]="horaOptions"
+          formControlName="hora"
+          [p-disabled]="loadingHora"
+        >
+        </po-select>
+        <span
+          *ngIf="placeHora"
+          class="po-font-text-small po-sm-12 po-mb-2"
+          style="color: #c64840"
+          >! {{ placeHora }}</span
+        >
+      </div>
+      <div class="po-row">
+        <po-select
+          class="po-sm-12"
+          p-label="Tipo de serviço"
+          [p-options]="tipoServicoOptions"
+          formControlName="tipo"
+          [p-disabled]="loadingServicos"
+          (p-change)="changeServico($event)"
+          [p-help]="descricaoServico"
+        >
+        </po-select>
+        <span
+          *ngIf="msgObrigatorio"
+          class="po-font-text-small po-sm-12"
+          style="color: #c64840"
+          >! {{ msgObrigatorio }}</span
+        >
+      </div>
+      <div class="po-row">
+        <po-select
+          class="po-sm-12"
+          p-label="Tipo de veículo"
+          [p-options]="tipoVeiculoOptions"
+          formControlName="tipoVeiculo"
+          [p-disabled]="loadingServicos"
+          (p-change)="changeTipoVeiculo($event)"
+          p-help="Categoria do seu veículo"
+        >
+        </po-select>
+      </div>
+      <div class="po-row po-mt-2" *ngIf="formAgendar.valid && !msgObrigatorio">
+        <span class="po-font-subtitle po-sm-12"
+          >Total: R$ {{ precoServico }}</span
+        >
+      </div>
+      <div class="po-row po-mt-2" *ngIf="msgObrigatorio">
+        <po-button
+          class="po-sm-12"
+          p-icon="po-icon-clipboard"
+          p-label="Meus Dados"
+          (p-click)="meusDados()"
+        >
+        </po-button>
+      </div>
+      <div class="po-row po-mt-2">
+        <po-button
+          class="po-sm-12"
+          p-type="primary"
+          p-icon="po-icon-ok"
+          p-label="Confirmar"
+          p-loading="loadingAgendar"
+          [p-disabled]="!formAgendar.valid || msgObrigatorio?.length > 0"
+          (p-click)="saveAgenda()"
+        >
+        </po-button>
+      </div>
+    </form>
+  </div>
+</po-page-default>

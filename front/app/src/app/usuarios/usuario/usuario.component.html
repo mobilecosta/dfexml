@@ -1,0 +1,70 @@
+<po-breadcrumb
+  [p-items]="[{ label: 'Usuários', link: '/users' }, { label: 'Cadastro' }]"
+>
+</po-breadcrumb>
+<po-page-default p-title="Cadastro de Usuário">
+  <form [formGroup]="formUsuario">
+    <div>
+      <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
+    </div>
+    <div class="po-row po-mt-3 po-mt-sm-1">
+      <div class="po-md-6 po-offset-md-3 po-offset-lg-3 po-offset-xl-3">
+        <po-input
+          formControlName="nome"
+          p-label="Nome"
+          p-help="Nos diga seu nome"
+          p-clean
+          p-icon="po-icon-user"
+        >
+        </po-input>
+        <po-email formControlName="login" p-label="Email"> </po-email>
+        <po-input
+          formControlName="endereco"
+          p-label="Endereço"
+          p-help="Rua, avenida, bairro, cidade"
+          p-clean
+          p-icon="po-icon-pin"
+        >
+        </po-input>
+        <po-number formControlName="numero" p-label="Número" p-clean>
+        </po-number>
+        <po-input
+          formControlName="complemento"
+          p-label="Complemento"
+          p-help="Bloco, Apartamento"
+          p-clean
+        >
+        </po-input>
+
+        <po-input
+          formControlName="telefone"
+          p-label="Telefone"
+          p-mask="(99) 99999?-9999"
+          p-placeholder="(99) 99999-9999"
+          p-help="Telefone para contato"
+          p-clean
+        >
+        </po-input>
+        <po-select
+          formControlName="papel"
+          p-label="Papel"
+          [p-options]="papelOptions"
+        >
+        </po-select>
+      </div>
+    </div>
+  </form>
+
+  <div class="po-row">
+    <po-button
+      class="po-md-6 po-offset-md-3 po-offset-lg-3 po-offset-xl-3"
+      p-type="primary"
+      p-icon="po-icon-ok"
+      p-label="Salvar"
+      [p-loading]="loadingConfirmar"
+      [p-disabled]="!formUsuario.valid"
+      (p-click)="saveUsuario()"
+    >
+    </po-button>
+  </div>
+</po-page-default>

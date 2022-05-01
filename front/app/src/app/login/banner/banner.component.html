@@ -1,0 +1,58 @@
+<div *ngIf="isHideLoading" @listEnterSmoothAnimation>
+  <div class="po-row po-mt-2" *ngIf="loja">
+    <div
+      class="po-md-12 po-text-center po-font-text-large"
+      *ngIf="loja.msgBanner"
+    >
+      {{ loja.msgBanner }}
+    </div>
+    <div class="po-md-12 po-text-center po-font-text">
+      Nosso endereço é
+      <a *ngIf="loja.endereco" target="_blank" [href]="loja.linkEndereco">{{
+        loja.endereco
+      }}</a>
+      <a
+        *ngIf="loja.linkEndereco"
+        class="po-icon po-icon-pin"
+        target="_blank"
+        [href]="loja.linkEndereco"
+      ></a>
+    </div>
+
+    <div *ngIf="loja.promocoes" class="po-md-12 po-text-center po-mt-2">
+      <div class="po-font-text-large-bold">Promoções</div>
+      <div class="po-font-text">
+        {{ loja.promocoes }}
+      </div>
+    </div>
+  </div>
+
+  <div class="po-row">
+    <po-button
+      class="po-sm-12 po-mt-2"
+      (p-click)="onAgendarAnonimo()"
+      p-icon="po-icon-calendar"
+      p-label="Agendar sem Cadastro"
+      p-type="primary"
+    >
+    </po-button>
+  </div>
+
+  <div class="po-row">
+    <div class="po-md-12 po-text-center po-font-text-large-bold po-m-2">
+      Nossos serviços
+    </div>
+  </div>
+
+  <po-list-view
+    p-property-title="titulo"
+    [p-items]="servicos"
+    [p-literals]="customLiteralsServicos"
+  >
+    <ng-template p-list-view-content-template let-item>
+      <div class="po-row">
+        <font class="po-sm-12 po-font-text">{{ item.descricao }}</font>
+      </div>
+    </ng-template>
+  </po-list-view>
+</div>

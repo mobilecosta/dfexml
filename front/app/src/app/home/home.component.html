@@ -1,0 +1,158 @@
+<po-page-default p-title="Meus agendamentos">
+  <div class="po-row">
+    <po-button
+      class="po-sm-12"
+      (p-click)="onAgendar()"
+      p-icon="po-icon-calendar"
+      p-label="Agendar"
+      p-type="primary"
+    >
+    </po-button>
+  </div>
+
+  <po-divider></po-divider>
+
+  <po-list-view
+    p-property-title="carro"
+    [p-actions]="listActions"
+    [p-items]="items"
+    [p-literals]="customLiterals"
+  >
+    <ng-template p-list-view-content-template let-item>
+      <div class="po-row">
+        <po-tag
+          *ngIf="item.status === 'confirmado'"
+          class="po-sm-6 po-md-3"
+          p-label="Status"
+          p-icon="true"
+          p-type="success"
+          p-value="Confirmado"
+          p-tooltip="Está confirmado, o serviço será feito!"
+          p-tooltip-position="bottom-left"
+        >
+        </po-tag>
+        <po-tag
+          *ngIf="item.status === 'concluido'"
+          class="po-sm-6 po-md-3"
+          p-label="Status"
+          p-icon="true"
+          p-type="info"
+          p-value="Concluído"
+          p-tooltip="Oo serviço já foi feito!"
+          p-tooltip-position="bottom-left"
+        >
+        </po-tag>
+        <po-tag
+          *ngIf="item.status === 'pendente'"
+          class="po-sm-6 po-md-3"
+          p-label="Status"
+          p-icon="true"
+          p-type="warning"
+          p-value="Pendente"
+          p-tooltip="Estamos verificando seu pedido!"
+          p-tooltip-position="bottom-left"
+        >
+        </po-tag>
+        <po-tag
+          *ngIf="item.status === 'cancelado'"
+          class="po-sm-6 po-md-3"
+          p-label="Status"
+          p-icon="true"
+          p-type="danger"
+          p-value="Cancelado"
+          p-tooltip="Esta agenda foi cancelada, não faremos o serviço!"
+          p-tooltip-position="bottom-left"
+        >
+        </po-tag>
+
+        <po-info
+          class="po-sm-6 po-md-3"
+          p-label="Tipo"
+          [p-value]="item.tipo"
+        ></po-info>
+        <po-info
+          class="po-sm-6 po-md-3"
+          p-label="Data"
+          p-value="{{ item.data | date }}"
+        ></po-info>
+        <po-info
+          class="po-sm-6 po-md-3"
+          p-label="Hora"
+          [p-value]="item.hora"
+        ></po-info>
+        <po-info
+          class="po-sm-6 po-md-3"
+          p-label="Tipo Veículo"
+          [p-value]="item.tipoVeiculo"
+        ></po-info>
+        <po-info
+          class="po-sm-6 po-md-3"
+          p-label="Preço"
+          p-value="R$ {{ item.preco }}"
+        ></po-info>
+        <po-info
+          *ngIf="item.observacao?.length > 0"
+          class="po-md-6"
+          p-label="Observações sobre o serviço"
+          [p-value]="item.observacao"
+        ></po-info>
+      </div>
+    </ng-template>
+  </po-list-view>
+  <div>
+    <po-loading-overlay [hidden]="isHideLoading"></po-loading-overlay>
+  </div>
+
+  <po-divider></po-divider>
+
+  <div *ngIf="isLoadingSrv" @listEnterSmoothAnimation>
+    <div class="po-row po-mt-2" *ngIf="loja">
+      <div
+        class="po-md-12 po-text-center po-font-text-large"
+        *ngIf="loja.msgBanner"
+      >
+        {{ loja.msgBanner }}
+      </div>
+      <div class="po-md-12 po-text-center po-font-text">
+        Nosso endereço é
+        <a *ngIf="loja.endereco" target="_blank" [href]="loja.linkEndereco">{{
+          loja?.endereco
+        }}</a>
+        <a
+          *ngIf="loja.linkEndereco"
+          class="po-icon po-icon-pin"
+          target="_blank"
+          [href]="loja.linkEndereco"
+        ></a>
+      </div>
+
+      <div *ngIf="loja.promocoes" class="po-md-12 po-text-center po-mt-2">
+        <div class="po-font-text-large-bold">Promoções</div>
+        <div class="po-font-text">
+          {{ loja.promocoes }}
+        </div>
+      </div>
+    </div>
+
+    <div class="po-row">
+      <div
+        class="po-md-12 po-text-center po-font-text-large-bold po-mt-2 po-mb-2"
+      >
+        Nossos serviços
+      </div>
+    </div>
+
+    <po-list-view
+      p-property-title="titulo"
+      [p-actions]="servicosActions"
+      [p-items]="servicos"
+      [p-literals]="customLiteralsServicos"
+    >
+      <ng-template p-list-view-content-template let-item>
+        <div class="po-row">
+          <font class="po-sm-12 po-font-text">{{ item.descricao }}</font>
+        </div>
+      </ng-template>
+    </po-list-view>
+  </div>
+</po-page-default>
