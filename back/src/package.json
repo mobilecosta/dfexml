@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "2captcha": "^3.0.4",
     "moment": "^2.29.1",
     "puppeteer": "^10.1.0",
     "request": "^2.88.2"

@@ -60,40 +60,30 @@ async function run () {
     });
     const page = await browser.newPage();
 
-    let site_key = '6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-';
+    // let site_key = '6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-';
     // let site_url = 'https://www.google.com/recaptcha/api2/demo';
+
 	let site_url = 'https://dfe-portal.svrs.rs.gov.br/MDFESSL/DownloadXMLDFe';
+	let site_key = '6LcPrHYUAAAAAFc6TCjw0pq2qDKQ3dzHHlqOh3J9';
 
     await page.goto(site_url);
 
-	await page.waitForSelector('.artigo__texto #ChaveAcessoDfe');
-	await page.evaluate((inputVal) => {
-		const $input = document.querySelector('.artigo__texto #ChaveAcessoDfe');
-		$input.value = '31211208091562000108580060000088021371122821';
-		$input.dispatchEvent(new Event('blur'));
-	}, ['31211208091562000108580060000088021371122821']);
-
-
     let captcha_token = await resolve_captcha_v2(site_key, site_url);
     if(!captcha_token)
-       return console.log("Falha ao obter o TOKEN 😤");
+        return console.log("Falha ao obter o TOKEN 😤");
 
     let navigation_promise = page.waitForNavigation();
     await page.evaluate((inside_token) => {
         document.querySelector('#g-recaptcha-response').innerHTML = inside_token;
+		console.log(inside_token);
         document.querySelector('#recaptcha-demo-submit').click();
     }, captcha_token);
     await navigation_promise;
 
     let success = await page.$('.recaptcha-success');
     if(success)
-	{
-        // const searchBtn =  await page.$x("/html/body/div[1]/div/div/div[1]/div/div/div/article/div[2]/div/div/form/button[1]");
-        // searchBtn[0].click();
         return console.log("Captcha QUEBRADOOO 😍");
-	};
 
-   
     return console.log('FALHOU AO QUEBRAR O CAPTCHA');
     
 
