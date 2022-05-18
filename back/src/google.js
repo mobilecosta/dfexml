@@ -73,10 +73,11 @@ async function run () {
         return console.log("Falha ao obter o TOKEN 😤");
 
     let navigation_promise = page.waitForNavigation();
-    await page.evaluate((inside_token) => {
+    await page.evaluate( async (inside_token) => {
         document.querySelector('#g-recaptcha-response').innerHTML = inside_token;
 		console.log(inside_token);
-        document.querySelector('#recaptcha-demo-submit').click();
+        await document.querySelector('form').submit();
+        //document.querySelector('#recaptcha-demo-submit').click();
     }, captcha_token);
     await navigation_promise;
 
